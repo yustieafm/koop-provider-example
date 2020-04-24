@@ -6,7 +6,7 @@
   Documentation: http://koopjs.github.io/docs/usage/provider
 */
 const request = require('request').defaults({ gzip: true, json: true })
-const config = require('config')
+//const config = require('config')
 
 function Model (koop) {}
 
@@ -22,10 +22,10 @@ function Model (koop) {}
 // req.params.layer
 // req.params.method
 Model.prototype.getData = function (req, callback) {
-  const key = config.trimet.key
+//  const key = config.trimet.key
 
   // Call the remote API with our developer key
-  request(`https://developer.trimet.org/ws/v2/vehicles/onRouteOnly/false/appid/${key}`, (err, res, body) => {
+  request(`https://covid19-public.digitalservice.id/api/v1/sebaran/jabar`, (err, res, body) => {
     if (err) return callback(err)
 
     // translate the response into geojson
@@ -49,7 +49,7 @@ Model.prototype.getData = function (req, callback) {
 function translate (input) {
   return {
     type: 'FeatureCollection',
-    features: input.resultSet.vehicle.map(formatFeature)
+    features: input.data.content.map(formatFeature)
   }
 }
 
@@ -64,10 +64,10 @@ function formatFeature (inputFeature) {
     }
   }
   // But we also want to translate a few of the date fields so they are easier to use downstream
-  const dateFields = ['expires', 'serviceDate', 'time']
-  dateFields.forEach(field => {
-    feature.properties[field] = new Date(feature.properties[field]).toISOString()
-  })
+  //const dateFields = ['expires', 'serviceDate', 'time']
+  //dateFields.forEach(field => {
+  //  feature.properties[field] = new Date(feature.properties[field]).toISOString()
+  //})
   return feature
 }
 
