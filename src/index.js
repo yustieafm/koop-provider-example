@@ -12,7 +12,7 @@
 const express = require('express')
 const app = express()
 const fs = require('fs')
-const https = require('https')
+const http = require('http');
 const Koop = require('koop')
 const koop = new Koop()
 const provider = {
@@ -27,8 +27,6 @@ const provider = {
 }
 koop.register(provider)
 app.use('/koop', koop.server)
-https.createServer({
-  key: fs.readFileSync("./server.key"),
-  cert: fs.readFileSync("./server.cert")}, app).listen(8443);
+https.createServer(req, app).listen(3000);
 
 module.exports = provider
