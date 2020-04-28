@@ -28,7 +28,7 @@ const provider = {
 koop.register(provider)
 app.use('/koop', koop.server)
 https.createServer({
-  key: fs.readFileSync("../server.key"),
-  cert: fs.readFileSync("../server.cert")}, app).listen(8443);
+  key: fs.readFileSync("./server.key"),
+  cert: fs.readFileSync("./server.cert")}, app).listen(8443);
 
 module.exports = provider
